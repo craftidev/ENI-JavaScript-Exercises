@@ -1,5 +1,5 @@
 Vanilla JS.
 
-Liste of exercises from ENI School.
+List of exercises from ENI School bundled in an SPA.
 
 In progres...
