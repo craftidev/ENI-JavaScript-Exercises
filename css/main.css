@@ -1,0 +1,35 @@
+:root {
+    background-color: #4a412a;
+}
+
+#app {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+}
+
+#menu {
+    margin: 2em;
+    width: 20%;
+}
+
+.menu-element {
+    background-color: #706443;
+}
+
+#exercises {
+    margin: 2em;
+    width: 80%;
+}
+
+a {
+    color: rgb(146, 146, 146);
+
+    &:hover {
+        color: #4a412a;
+    }
+}
+
+strong {
+    font-weight: bold;
+}
