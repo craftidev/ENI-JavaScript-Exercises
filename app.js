@@ -12,6 +12,7 @@ var menuList = document.getElementById("menu-list");
 chapters.forEach(function (chapter, index) {
     var li = document.createElement("li");
     li.classList.add("menu-element");
+
     var a = document.createElement("a");
     a.textContent = chapter.title;
     a.href = "#";
@@ -19,6 +20,7 @@ chapters.forEach(function (chapter, index) {
     a.onclick = function () {
         displayExercise(a.id);
     };
+
     li.appendChild(a);
     menuList.appendChild(li);
 });
@@ -26,6 +28,7 @@ chapters.forEach(function (chapter, index) {
 // Function to display content of exercise
 function displayExercise(index) {
     var exerciseSpace = document.getElementById("exercises");
+
     if (typeof chapters[index].content === "function") {
         var result = chapters[index].content();
         if (typeof result === "string") {
