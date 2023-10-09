@@ -2,6 +2,22 @@
     background-color: #4a412a;
 }
 
+a {
+    color: rgb(146, 146, 146);
+
+    &:hover {
+        color: #4a412a;
+    }
+}
+
+strong {
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 3em;
+}
+
 #app {
     display: flex;
     flex-direction: row;
@@ -22,14 +38,6 @@
     width: 80%;
 }
 
-a {
-    color: rgb(146, 146, 146);
-
-    &:hover {
-        color: #4a412a;
-    }
-}
-
-strong {
-    font-weight: bold;
+.title-in-decimal-list {
+    display: inline;
 }
