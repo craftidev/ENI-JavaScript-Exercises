@@ -4,6 +4,7 @@ function exercise1b() {
 
     return "Starting with the string:<br />" +
         START +
-        "<br />And sorted alphabetically:<br />" +
-        result;
+        "<br />And sorted alphabetically:<br /><strong>" +
+        result +
+        "</strong>";
 }
