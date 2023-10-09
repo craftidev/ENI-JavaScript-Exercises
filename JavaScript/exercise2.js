@@ -1,11 +1,27 @@
 function exercise2() {
     let result = document.createElement("div");
+    result.classList.add("form");
     
-    let inputTitle = Object.assign(document.createElement("input"), { type: "text" });
-    let inputAuthor = Object.assign(document.createElement("input"), { type: "text" });
-    let inputDate = Object.assign(document.createElement("input"), { type: "date" });
+    let labelTitle = Object.assign(document.createElement("label"), { type: "text", for: "title" });
+    let inputTitle = Object.assign(document.createElement("input"), { id: "title" });
+    let labelAuthor = Object.assign(document.createElement("label"), { for: "author" });
+    let inputAuthor = Object.assign(document.createElement("input"), { type: "text", id: "author" });
+    let labelDate = Object.assign(document.createElement("label"), { for: "date" });
+    let inputDate = Object.assign(document.createElement("input"), { type: "date", id: "date" });
     let inputSubmit = Object.assign(document.createElement("input"), { type: "submit" });
     let displayResult = document.createElement("ul");
+
+    labelTitle.textContent = "Title: ";
+    labelAuthor.textContent = "Author: ";
+    labelDate.textContent = "Date: ";
+
+    result.appendChild(labelTitle);
+    result.appendChild(inputTitle);
+    result.appendChild(labelAuthor);
+    result.appendChild(inputAuthor);
+    result.appendChild(labelDate);
+    result.appendChild(inputDate);
+    result.appendChild(inputSubmit);
 
     inputSubmit.onclick = function () {
         if(
@@ -28,7 +44,7 @@ function exercise2() {
             li.appendChild(title);
             li.appendChild(authorAndDate);
 
-            result.appendChild(li);
+            displayResult.appendChild(li);
 
             li.onclick = function() {
                 let userConfirm = confirm(
@@ -36,16 +52,13 @@ function exercise2() {
                     " ------ Do you want to delete this entry?"
                 );
                 if (userConfirm === true) {
-                    result.removeChild(this);
+                    displayResult.removeChild(this);
                 }
             }
+
+            result.appendChild(displayResult);
         }
     }
-
-    result.appendChild(inputTitle);
-    result.appendChild(inputAuthor);
-    result.appendChild(inputDate);
-    result.appendChild(inputSubmit);
 
     return result;
 }

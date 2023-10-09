@@ -6,7 +6,7 @@ a {
     color: rgb(146, 146, 146);
 
     &:hover {
-        color: #4a412a;
+        color: #110f09;
     }
 }
 
@@ -16,6 +16,10 @@ strong {
 
 h1 {
     font-size: 3em;
+}
+
+input {
+    background-color: #4b4433;
 }
 
 #app {
@@ -38,6 +42,13 @@ h1 {
     width: 80%;
 }
 
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
 .title-in-decimal-list {
     display: inline;
+    cursor: pointer;
 }
