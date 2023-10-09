@@ -16,6 +16,10 @@ var chapters = [
         title: "Task 4: Uppercase first letter of each word",
         content: exercise1c,
     },
+    {
+        title: "Task 5: Add dynamically formated text from HTML form",
+        content: exercise2,
+    },
     // Add new chapters here
 ];
 
@@ -45,6 +49,9 @@ function displayExercise(index) {
         var result = chapters[index].content();
         if (typeof result === "string") {
             exerciseSpace.innerHTML = result;
+        } else if (result instanceof Node && result.nodeType === Node.ELEMENT_NODE) {
+            exerciseSpace.innerHTML = '';
+            exerciseSpace.appendChild(result);
         } else {
             exerciseSpace.textContent = "Exercise executed. Check the console.";
         }
