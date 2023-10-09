@@ -4,6 +4,18 @@ var chapters = [
         title: "Task 0: Template for JS Exercises",
         content: exercise0,
     },
+    {
+        title: "Task 1: Count random generation",
+        content: exercise1a,
+    },
+    {
+        title: "Task 3: Sort alphabetically a string",
+        content: exercise1b,
+    },
+    {
+        title: "Task 4: Uppercase first letter of each word",
+        content: exercise1c,
+    },
     // Add new chapters here
 ];
 
