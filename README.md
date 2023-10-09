@@ -1,7 +1,5 @@
-https://craftidev.github.io/ENI-JavaScript-Exercises/
+# Be adviced
+Don't merge this README.md file in main. It only present this branch.
 
-Vanilla JS.
-
-List of exercises from ENI School bundled in an SPA.
-
-In progres...
+# Use
+A form to add dynamically some formated text from a title, an author and a date.
