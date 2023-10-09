@@ -20,6 +20,10 @@ var chapters = [
         title: "Task 5: Add dynamically formated text from HTML form",
         content: exercise2,
     },
+    {
+        title: "Task 6: ???",
+        content: exercise3,
+    },
     // Add new chapters here
 ];
 
