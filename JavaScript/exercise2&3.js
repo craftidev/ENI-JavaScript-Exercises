@@ -1,29 +1,37 @@
-function exercise2() {
-    let result = document.createElement("div");
-    result.classList.add("form");
-    
-    let labelTitle = Object.assign(document.createElement("label"), { type: "text", for: "title" });
-    let inputTitle = Object.assign(document.createElement("input"), { id: "title" });
-    let labelAuthor = Object.assign(document.createElement("label"), { for: "author" });
-    let inputAuthor = Object.assign(document.createElement("input"), { type: "text", id: "author" });
-    let labelDate = Object.assign(document.createElement("label"), { for: "date" });
-    let inputDate = Object.assign(document.createElement("input"), { type: "date", id: "date" });
-    let inputSubmit = Object.assign(document.createElement("input"), { type: "submit" });
+function exercise2_3() {
+    let result = document.createElement("div")
+    let form = document.createElement("form");
+    form.classList.add("form");
+
+    // Display element
     let displayResult = document.createElement("ul");
+
+    // Form elements
+    let labelTitle = Object.assign(document.createElement("label"), { type: "text", for: "title" });
+    let inputTitle = Object.assign(document.createElement("input"), { type: "text", id: "title", name: "title", required: true });
+    let labelAuthor = Object.assign(document.createElement("label"), { for: "author" });
+    let inputAuthor = Object.assign(document.createElement("input"), { type: "text", id: "author", name: "author", required: true });
+    let labelDate = Object.assign(document.createElement("label"), { for: "date" });
+    let inputDate = Object.assign(document.createElement("input"), { type: "date", id: "date", name: "date", required: true });
+    let inputSubmit = Object.assign(document.createElement("input"), { type: "submit" });
 
     labelTitle.textContent = "Title: ";
     labelAuthor.textContent = "Author: ";
     labelDate.textContent = "Date: ";
 
-    result.appendChild(labelTitle);
-    result.appendChild(inputTitle);
-    result.appendChild(labelAuthor);
-    result.appendChild(inputAuthor);
-    result.appendChild(labelDate);
-    result.appendChild(inputDate);
-    result.appendChild(inputSubmit);
+    form.appendChild(labelTitle);
+    form.appendChild(inputTitle);
+    form.appendChild(labelAuthor);
+    form.appendChild(inputAuthor);
+    form.appendChild(labelDate);
+    form.appendChild(inputDate);
+    form.appendChild(inputSubmit);
 
-    inputSubmit.onclick = function () {
+
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        // Checks not necessary because of 'required' in the input elements
         if(
             inputTitle.value.length == 0 ||
             inputAuthor.value.length == 0 ||
@@ -38,8 +46,8 @@ function exercise2() {
             title.classList.add("title-in-decimal-list");
             let authorAndDate = document.createElement("p");
 
-            title.textContent = inputTitle.value;
-            authorAndDate.textContent = inputAuthor.value + ", " + inputDate.value;
+            title.textContent = form.elements.title.value;
+            authorAndDate.textContent = form.elements.author.value + ", " + form.elements.date.value;
 
             li.appendChild(title);
             li.appendChild(authorAndDate);
@@ -55,10 +63,11 @@ function exercise2() {
                     displayResult.removeChild(this);
                 }
             }
-
-            result.appendChild(displayResult);
         }
-    }
+    });
+
+    result.appendChild(form);
+    result.appendChild(displayResult);
 
     return result;
 }
