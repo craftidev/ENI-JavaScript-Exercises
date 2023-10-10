@@ -12,8 +12,13 @@ Article.prototype.toHTML = function () {
     title.classList.add("title-in-decimal-list");
     const authorAndDate = document.createElement("p");
 
+    const year = this.date.getFullYear();
+    const month = String(this.date.getMonth() + 1).padStart(2, '0');
+    const day = String(this.date.getDate()).padStart(2, '0');
+    const formatedDate = `${year}-${month}-${day}`;
+
     title.textContent = this.title;
-    authorAndDate.textContent = this.author + ", " + this.date;
+    authorAndDate.textContent = this.author + ", " + formatedDate;
 
     li.appendChild(title);
     li.appendChild(authorAndDate);
@@ -24,6 +29,8 @@ Article.prototype.toHTML = function () {
 function ListOfArticles(listOfArticles = []) {
     this.ol = document.createElement("ol");
     this.listOfArticles = listOfArticles;
+    this.orderByAuthorAscend = true;
+    this.orderByDateAscend = true;
 }
 
 ListOfArticles.prototype.addElement = function(article) {
@@ -36,40 +43,46 @@ ListOfArticles.prototype.display = function() {
     this.ol.innerHTML = "";
 
     for(let article of this.listOfArticles) {
-        article.onclick = () => {
+        const articleToHTML = article.toHTML();
+
+        articleToHTML.onclick = () => {
             const userConfirm = confirm(
                 article.firstElementChild.textContent +
                 " ------ Do you want to delete this entry?"
             );
 
             if (userConfirm === true) {
-                article.remove();
+                articleToHTML.remove();
                 const index = this.listOfArticles.indexOf(article);
                 this.listOfArticles.splice(index, 1);
             }
         }
 
-        this.ol.appendChild(article);
+        this.ol.appendChild(articleToHTML);
     }
 
     return this.ol;
 }
 
-ListOfArticles.prototype.sortByAuthor = function(order) {
-    if(order === "ascending") {
-        this.sort((a, b) => a.author.localeCompare(b.author));
+ListOfArticles.prototype.sortByAuthor = function() {
+    if(this.orderByAuthorAscend) {
+        this.listOfArticles.sort((a, b) => a.author.localeCompare(b.author));
+        this.orderByAuthorAscend = false;
     } else {
-        this.sort((a, b) => b.author.localeCompare(a.author));
+        this.listOfArticles.sort((a, b) => b.author.localeCompare(a.author));
+        this.orderByAuthorAscend = true;
     }
 
     this.display();
 }
 
-ListOfArticles.prototype.sortByDate = function(order) {
-    if(order === "ascending") {
-        this.sort((a, b) => a.date - b.date);
+ListOfArticles.prototype.sortByDate = function() {
+    if(this.orderByDateAscend) {
+        this.listOfArticles.sort((a, b) => a.date - b.date);
+        this.orderByDateAscend = false;
     } else {
-        this.sort((a, b) => b.date - a.date);
+        this.listOfArticles.sort((a, b) => b.date - a.date);
+        this.orderByDateAscend = true;
     }
 
     this.display();
@@ -81,9 +94,20 @@ function exercise2_3() {
 
     // Display elements
     const displayResult = document.createElement("div");
-    const btnOrderByAuthor = document.createElement("button");
-    const btnOrderByDate = document.createElement("button");
     const listOfArticles = new ListOfArticles();
+
+    const btnOrderByAuthor = document.createElement("button");
+    btnOrderByAuthor.textContent = "Order by author";
+    btnOrderByAuthor.onclick = function() {
+        listOfArticles.sortByAuthor();
+    }
+
+    const btnOrderByDate = document.createElement("button");
+    btnOrderByDate.textContent = "Order by date";
+    btnOrderByDate.onclick = function() {
+        listOfArticles.sortByDate();
+    }
+
     displayResult.appendChild(btnOrderByAuthor);
     displayResult.appendChild(btnOrderByDate);
     displayResult.appendChild(listOfArticles.display());
@@ -133,8 +157,8 @@ function exercise2_3() {
         }
 
         else {
-            const newEntry = new Article(form.elements.title.value, form.elements.author.value, form.elements.date.value);
-            listOfArticles.addElement(newEntry.toHTML());
+            const newEntry = new Article(form.elements.title.value, form.elements.author.value, form.elements.date.valueAsDate);
+            listOfArticles.addElement(newEntry);
         }
     });
 
