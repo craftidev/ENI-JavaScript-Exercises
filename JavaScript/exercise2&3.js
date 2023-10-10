@@ -18,22 +18,12 @@ Article.prototype.toHTML = function () {
     li.appendChild(title);
     li.appendChild(authorAndDate);
 
-    li.onclick = function() {
-        const userConfirm = confirm(
-            this.firstElementChild.textContent +
-            " ------ Do you want to delete this entry?"
-        );
-        if (userConfirm === true) {
-            this.remove();
-        }
-    }
-
     return li;
 }
 
-function ListOfArticles(list = []) {
+function ListOfArticles(listOfArticles = []) {
     this.ol = document.createElement("ol");
-    this.listOfArticles = list;
+    this.listOfArticles = listOfArticles;
 }
 
 ListOfArticles.prototype.addElement = function(article) {
@@ -46,7 +36,19 @@ ListOfArticles.prototype.display = function() {
     this.ol.innerHTML = "";
 
     for(let article of this.listOfArticles) {
-        console.log(article);
+        article.onclick = () => {
+            const userConfirm = confirm(
+                article.firstElementChild.textContent +
+                " ------ Do you want to delete this entry?"
+            );
+
+            if (userConfirm === true) {
+                article.remove();
+                const index = this.listOfArticles.indexOf(article);
+                this.listOfArticles.splice(index, 1);
+            }
+        }
+
         this.ol.appendChild(article);
     }
 
