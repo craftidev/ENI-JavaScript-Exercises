@@ -1,3 +1,4 @@
+// DTO
 function Article(title, author, date) {
     this.title = title;
     this.author = author;
@@ -5,10 +6,11 @@ function Article(title, author, date) {
 }
 
 Article.prototype.toHTML = function () {
-    let li = Object.assign(document.createElement("li"), { style: "list-style-type: decimal;" });
-    let title = document.createElement("h1");
+    const li = document.createElement("li");
+    li.classList.add("li-article");
+    const title = document.createElement("h1");
     title.classList.add("title-in-decimal-list");
-    let authorAndDate = document.createElement("p");
+    const authorAndDate = document.createElement("p");
 
     title.textContent = this.title;
     authorAndDate.textContent = this.author + ", " + this.date;
@@ -17,38 +19,90 @@ Article.prototype.toHTML = function () {
     li.appendChild(authorAndDate);
 
     li.onclick = function() {
-        let userConfirm = confirm(
+        const userConfirm = confirm(
             this.firstElementChild.textContent +
             " ------ Do you want to delete this entry?"
         );
         if (userConfirm === true) {
-            displayResult.removeChild(this);
+            this.remove();
         }
     }
+
+    return li;
 }
 
-function exercise2_3() {
-    let result = document.createElement("div")
-    let form = document.createElement("form");
-    form.classList.add("form");
+function ListOfArticles(list = []) {
+    this.ol = document.createElement("ol");
+    this.listOfArticles = list;
+}
 
-    // Display element
-    let displayResult = document.createElement("ul");
+ListOfArticles.prototype.addElement = function(article) {
+    this.listOfArticles.push(article);
+
+    this.display();
+}
+
+ListOfArticles.prototype.display = function() {
+    this.ol.innerHTML = "";
+
+    for(let article of this.listOfArticles) {
+        console.log(article);
+        this.ol.appendChild(article);
+    }
+
+    return this.ol;
+}
+
+ListOfArticles.prototype.sortByAuthor = function(order) {
+    if(order === "ascending") {
+        this.sort((a, b) => a.author.localeCompare(b.author));
+    } else {
+        this.sort((a, b) => b.author.localeCompare(a.author));
+    }
+
+    this.display();
+}
+
+ListOfArticles.prototype.sortByDate = function(order) {
+    if(order === "ascending") {
+        this.sort((a, b) => a.date - b.date);
+    } else {
+        this.sort((a, b) => b.date - a.date);
+    }
+
+    this.display();
+}
+
+// Entry point of exercise
+function exercise2_3() {
+    const result = document.createElement("div")
+
+    // Display elements
+    const displayResult = document.createElement("div");
+    const btnOrderByAuthor = document.createElement("button");
+    const btnOrderByDate = document.createElement("button");
+    const listOfArticles = new ListOfArticles();
+    displayResult.appendChild(btnOrderByAuthor);
+    displayResult.appendChild(btnOrderByDate);
+    displayResult.appendChild(listOfArticles.display());
 
     // Form elements
-    let labelTitle = Object.assign(document.createElement("label"),
+    const form = document.createElement("form");
+    form.classList.add("form");
+
+    const labelTitle = Object.assign(document.createElement("label"),
         { type: "text", for: "title" });
-    let inputTitle = Object.assign(document.createElement("input"),
+    const inputTitle = Object.assign(document.createElement("input"),
         { type: "text", id: "title", name: "title", required: true });
-    let labelAuthor = Object.assign(document.createElement("label"),
+    const labelAuthor = Object.assign(document.createElement("label"),
         { for: "author" });
-    let inputAuthor = Object.assign(document.createElement("input"),
+    const inputAuthor = Object.assign(document.createElement("input"),
         { type: "text", id: "author", name: "author", required: true });
-    let labelDate = Object.assign(document.createElement("label"),
+    const labelDate = Object.assign(document.createElement("label"),
         { for: "date" });
-    let inputDate = Object.assign(document.createElement("input"),
-        { type: "date", id: "date", name: "date", required: true });
-    let inputSubmit = Object.assign(document.createElement("input"),
+    const inputDate = Object.assign(document.createElement("input"),
+        { type: "date", id: "date", name: "date", valueAsDate: new Date(), required: true });
+    const inputSubmit = Object.assign(document.createElement("input"),
         { type: "submit" });
 
     labelTitle.textContent = "Title: ";
@@ -67,7 +121,7 @@ function exercise2_3() {
     form.addEventListener("submit", function(event) {
         event.preventDefault();
 
-        // Checks not necessary because of 'required' in the input elements
+        // Checks unecessary because of 'required' in the input elements
         if(
             inputTitle.value.length == 0 ||
             inputAuthor.value.length == 0 ||
@@ -78,7 +132,7 @@ function exercise2_3() {
 
         else {
             const newEntry = new Article(form.elements.title.value, form.elements.author.value, form.elements.date.value);
-            displayResult.appendChild(newEntry.toHTML());
+            listOfArticles.addElement(newEntry.toHTML());
         }
     });
 

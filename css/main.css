@@ -22,6 +22,10 @@ input {
     background-color: #4b4433;
 }
 
+ol {
+    list-style-type: decimal;
+}
+
 #app {
     display: flex;
     flex-direction: row;
@@ -50,5 +54,8 @@ input {
 
 .title-in-decimal-list {
     display: inline;
+}
+
+.li-article {
     cursor: pointer;
 }
