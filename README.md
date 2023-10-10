@@ -14,7 +14,6 @@ Use JS math.random and count iteration necessary to draw all numbers in a range
 ## Sort alphabetically a string
 
 ## Uppercase first letter of each word of a string
-Task 5 & 6: Add dynamically formated text from HTML form and sort article created using objects
 
 ## Create dynamically a list of formated articles with a form (title/author/date)
 - Use JS Objects to represent each article added by the user
