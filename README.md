@@ -1,3 +1,12 @@
+# Branch README.md **DO NOT MERGE**
+- Re-use exercise2&3.js to add features
+- Refactor into standard architecture with 3 package: 
+    - models
+    - services
+    - controllers
+- Use local storage to remember user entries
+---
+# Mater README
 https://craftidev.github.io/ENI-JavaScript-Exercises/
 
 Vanilla JS.
