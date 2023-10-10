@@ -47,7 +47,7 @@ ListOfArticles.prototype.display = function() {
 
         articleToHTML.onclick = () => {
             const userConfirm = confirm(
-                article.firstElementChild.textContent +
+                articleToHTML.firstElementChild.textContent +
                 " ------ Do you want to delete this entry?"
             );
 
