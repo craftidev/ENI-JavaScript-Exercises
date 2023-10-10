@@ -17,13 +17,9 @@ var chapters = [
         content: exercise1c,
     },
     {
-        title: "Task 5: Add dynamically formated text from HTML form",
+        title: "Task 5 & 6: Add dynamically formated text from HTML form and sort article created using objects",
         content: exercise2,
-    },
-    {
-        title: "Task 6: ???",
-        content: exercise3,
-    },
+    }
     // Add new chapters here
 ];
 

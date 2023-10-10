@@ -1,7 +1,7 @@
-https://craftidev.github.io/ENI-JavaScript-Exercises/
+Re-work exercise2.js into exercise2&3.js
 
-Vanilla JS.
-
-List of exercises from ENI School bundled in an SPA.
-
-In progres...
+# Challenge
+- Use JS Objects to represent each article added by the user
+- Add the possibility to sort the list of article by
+    - alphabetical order of Authors
+    - chronological order of Dates
