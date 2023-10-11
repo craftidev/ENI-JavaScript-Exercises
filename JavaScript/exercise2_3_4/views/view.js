@@ -4,18 +4,45 @@ import {
     createListOfArticles
 } from '../controllers/controller.js';
 
-const listOfArticles = createListOfArticles();
+const listOfArticlesController = createListOfArticles();
 
 export default function createExerciseView() {
-    const result = document.createElement("div");
-    const displayResult = createDisplayResult();
+    const output = document.createElement("div");
     const form = createForm();
+    const displayResult = createDisplayResult();
+    const listOfArticlesElement = document.createElement("ol");
+    listOfArticlesElement.classList.add("list-of-articles-display");
 
-    displayResult.appendChild(listOfArticles.display());
-    result.appendChild(form);
-    result.appendChild(displayResult);
+    renderListOfArticlesDisplay(listOfArticlesElement);
 
-    return result;
+    displayResult.appendChild(listOfArticlesElement);
+    output.appendChild(form);
+    output.appendChild(displayResult);
+
+    return output;
+}
+
+function renderListOfArticlesDisplay(listOfArticlesElement) {
+    listOfArticlesElement.innerHTML = "";
+
+    for (let article of listOfArticlesController) {
+        const articleToHTML = article.toHTML();
+
+        articleToHTML.onclick = () => {
+            const userConfirm = confirm(
+                articleToHTML.firstElementChild.textContent +
+                " ------ Do you want to delete this entry?"
+            );
+
+            if (userConfirm === true) {
+                articleToHTML.remove();
+                const index = listOfArticlesController.indexOf(article);
+                listOfArticlesController.splice(index, 1);
+            }
+        };
+
+        listOfArticlesElement.appendChild(articleToHTML);
+    }
 }
 
 function createDisplayResult() {
@@ -24,13 +51,13 @@ function createDisplayResult() {
     const btnOrderByAuthor = document.createElement("button");
     btnOrderByAuthor.textContent = "Order by author";
     btnOrderByAuthor.onclick = function() {
-        handleListOfArticleSorting(listOfArticles, "author");
+        handleListOfArticleSorting(listOfArticlesController, "author");
     }
 
     const btnOrderByDate = document.createElement("button");
     btnOrderByDate.textContent = "Order by date";
     btnOrderByDate.onclick = function() {
-        handleListOfArticleSorting(listOfArticles, "date");
+        handleListOfArticleSorting(listOfArticlesController, "date");
     }
 
     displayResult.appendChild(btnOrderByAuthor);
@@ -43,7 +70,7 @@ function createForm() {
     const form = document.createElement("form");
     form.classList.add("form");
     form.addEventListener("submit", function (event) {
-        handleFormSubmission(this, event, listOfArticles);
+        handleFormSubmission(this, event, listOfArticlesController);
     });
 
     const labelTitle = Object.assign(document.createElement("label"),

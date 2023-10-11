@@ -12,31 +12,6 @@ export default class ListOfArticles {
         this.display();
     }
 
-    display() {
-        this.ol.innerHTML = "";
-
-        for (let article of this.listOfArticles) {
-            const articleToHTML = article.toHTML();
-
-            articleToHTML.onclick = () => {
-                const userConfirm = confirm(
-                    articleToHTML.firstElementChild.textContent +
-                    " ------ Do you want to delete this entry?"
-                );
-
-                if (userConfirm === true) {
-                    articleToHTML.remove();
-                    const index = this.listOfArticles.indexOf(article);
-                    this.listOfArticles.splice(index, 1);
-                }
-            };
-
-            this.ol.appendChild(articleToHTML);
-        }
-
-        return this.ol;
-    }
-
     sortByAuthor() {
         if (this.orderByAuthorAscend) {
             this.listOfArticles.sort((a, b) => a.author.localeCompare(b.author));
