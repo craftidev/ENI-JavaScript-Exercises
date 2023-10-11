@@ -17,7 +17,10 @@ export default function createExerciseView() {
     output.appendChild(form);
     output.appendChild(displayResult);
 
-    renderListOfArticlesHTMLElement();
+    // Wait for the DOM to load before rendering the list of articles.
+    setTimeout(() => {
+        renderListOfArticlesHTMLElement();
+    }, 0);
 
     return output;
 }             
@@ -25,27 +28,25 @@ export default function createExerciseView() {
 function renderListOfArticlesHTMLElement() {
     const listOfArticlesHTMLElement = document.querySelector("#listOfArticlesHTMLElement");
 
-    if (listOfArticlesHTMLElement !== null) {
-        listOfArticlesHTMLElement.innerHTML = "";
+    listOfArticlesHTMLElement.innerHTML = "";
 
-        for (const article of listOfArticlesController.getListOfArticles()) {
-            const articleToHTML = article.toHTML();
+    for (const article of listOfArticlesController.getListOfArticles()) {
+        const articleToHTML = article.toHTML();
 
-            articleToHTML.onclick = () => {
-                const userConfirm = confirm(
-                    articleToHTML.firstElementChild.textContent +
-                    " ------ Do you want to delete this entry?"
-                    );
-                    
-                    if (userConfirm === true) {
-                        articleToHTML.remove();
-                        const index = articles.indexOf(article);
-                        articles.splice(index, 1);
-                    }
-                };
+        articleToHTML.onclick = () => {
+            const userConfirm = confirm(
+                articleToHTML.firstElementChild.textContent +
+                " ------ Do you want to delete this entry?"
+                );
+                
+                if (userConfirm === true) {
+                    articleToHTML.remove();
+                    const index = articles.indexOf(article);
+                    articles.splice(index, 1);
+                }
+            };
 
-            listOfArticlesHTMLElement.appendChild(articleToHTML);
-        }
+        listOfArticlesHTMLElement.appendChild(articleToHTML);
     }
 }
 
