@@ -1,6 +1,7 @@
 export function readLocalStorage() {
-    const storedData = localStorage.getItem('listOfArticles');
-    return JSON.parse(storedData);
+    const storedData = getAllItemsWithPrefix("article-");
+
+    return storedData;
 }
 
 export function addItemLocalStorage(article) {
@@ -10,4 +11,19 @@ export function addItemLocalStorage(article) {
 export function removeItemByIdLocalStorage(aritcleId) {
     const key = `article-${articleId}`;
     localStorage.removeItem(key);
+}
+
+function getAllItemsWithPrefix(prefix) {
+    const items = [];
+    
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+
+        if (key.startsWith(prefix)) {
+        const item = JSON.parse(localStorage.getItem(key));
+        items.push(item);
+        }
+    }
+
+    return items;
 }
