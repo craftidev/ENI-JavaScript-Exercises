@@ -1,20 +1,21 @@
 import Article from './models/Article.js';
 import ListOfArticles from './models/ListOfArticles.js';
 import createExerciseView from './views/view.js';
+import handleListOfArticleSorting from './controllers/controller.js';
 
 // Entry point of exercise
 export default function exercise2_3_4() {
     const result = createExerciseView();
+    const listOfArticles = new ListOfArticles();
 
-    // const listOfArticles = new ListOfArticles();
+    // Event listeners
+    result.querySelectorById("btnOrderByAuthor").onclick = function() {
+        handleListOfArticleSorting(listOfArticles, "author");
+    }
 
-    // btnOrderByAuthor.onclick = function() {
-    //     listOfArticles.sortByAuthor();
-    // }
-
-    // btnOrderByDate.onclick = function() {
-    //     listOfArticles.sortByDate();
-    // }
+    result.querySelectorById("btnOrderByDate").onclick = function() {
+        handleListOfArticleSorting(listOfArticles, "date");
+    }
 
     // displayResult.appendChild(listOfArticles.display());
 
