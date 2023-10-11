@@ -15,9 +15,11 @@ function createDisplayResult() {
 
     const btnOrderByAuthor = document.createElement("button");
     btnOrderByAuthor.textContent = "Order by author";
+    btnOrderByAuthor.id = "btnOrderByAuthor";
 
     const btnOrderByDate = document.createElement("button");
     btnOrderByDate.textContent = "Order by date";
+    btnOrderByDate.id = "btnOrderByDate";
 
     displayResult.appendChild(btnOrderByAuthor);
     displayResult.appendChild(btnOrderByDate);
