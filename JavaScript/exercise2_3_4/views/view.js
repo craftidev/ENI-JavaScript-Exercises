@@ -9,8 +9,6 @@ import {
 let listOfArticlesController;
 
 export function createExerciseView() {
-    listOfArticlesController = updateListOfArticles();
-
     const output = document.createElement("div");
     const form = createForm();
     const displayResult = createDisplayResult();
