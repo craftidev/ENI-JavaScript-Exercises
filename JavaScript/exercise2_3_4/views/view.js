@@ -1,10 +1,15 @@
-import { handleListOfArticleSorting, handleFormSubmission, createListOfArticles } from './controllers/controller.js';
+import {
+    handleListOfArticleSorting,
+    handleFormSubmission,
+    createListOfArticles
+} from '../controllers/controller.js';
+
+const listOfArticles = createListOfArticles();
 
 export default function createExerciseView() {
     const result = document.createElement("div");
     const displayResult = createDisplayResult();
     const form = createForm();
-    const listOfArticles = createListOfArticles();
 
     displayResult.appendChild(listOfArticles.display());
     result.appendChild(form);
