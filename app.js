@@ -23,7 +23,7 @@ var chapters = [
         content: exercise1c,
     },
     {
-        title: "Task 5, 6 & 7: Add dynamically formated text from HTML form and sort article created using objects",
+        title: "Task 5, 6 & 7: Add dynamically formated text from HTML form and sort article created using objects (MVC architecture)",
         content: exercise2_3_4,
     }
     // Add new chapters here
