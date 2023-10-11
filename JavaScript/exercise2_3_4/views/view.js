@@ -12,6 +12,7 @@ export default function createExerciseView() {
 
 function createDisplayResult() {
     const displayResult = document.createElement("div");
+    displayResult.id = "displayResult";
 
     const btnOrderByAuthor = document.createElement("button");
     btnOrderByAuthor.textContent = "Order by author";
