@@ -1,12 +1,22 @@
+import Article from '../models/Article.js';
+
 export default class ListOfArticles {
     constructor(listOfArticles = []) {
-        this.listOfArticles = listOfArticles;
+        this.listOfArticles = [];
         this.orderByAuthorAscend = true;
         this.orderByDateAscend = true;
+
+        for (const article of listOfArticles) {
+            this.addElement(article);
+        }
     }
 
     addElement(article) {
-        this.listOfArticles.push(article);
+        if (article instanceof Article) {
+            this.listOfArticles.push(article);
+        } else {
+            throw new Error("Invalid article object");
+        }
     }
 
     sortByAuthor() {

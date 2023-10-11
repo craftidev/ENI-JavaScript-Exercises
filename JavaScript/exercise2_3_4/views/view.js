@@ -1,10 +1,9 @@
 import {
-    handleListOfArticleSorting,
     handleFormSubmission,
-    createListOfArticles
+    handleListOfArticleSorting,
+    handleRemoveArticle,
+    updateListOfArticles
 } from '../controllers/controller.js';
-
-const listOfArticlesController = createListOfArticles();
 
 export default function createExerciseView() {
     const output = document.createElement("div");
@@ -23,34 +22,31 @@ export default function createExerciseView() {
     }, 0);
 
     return output;
-}             
+}         
 
 function renderListOfArticlesHTMLElement() {
+    const listOfArticlesController = updateListOfArticles();
     const listOfArticlesHTMLElement = document.querySelector("#listOfArticlesHTMLElement");
+    listOfArticlesHTMLElement.innerHTML = "";
+
+    const articles = listOfArticlesController.getListOfArticles();
 
     listOfArticlesHTMLElement.innerHTML = "";
 
-    for (const article of listOfArticlesController.getListOfArticles()) {
+    for (const article of articles) {
         const articleToHTML = article.toHTML();
+        articleToHTML.id = article.getId();
 
         articleToHTML.onclick = () => {
-            const userConfirm = confirm(
-                articleToHTML.firstElementChild.textContent +
-                " ------ Do you want to delete this entry?"
-                );
-                
-                if (userConfirm === true) {
-                    articleToHTML.remove();
-                    const index = articles.indexOf(article);
-                    articles.splice(index, 1);
-                }
-            };
+            handleRemoveArticle(article);
+        };
 
         listOfArticlesHTMLElement.appendChild(articleToHTML);
     }
 }
 
 function createDisplayResult() {
+    const listOfArticlesController = updateListOfArticles();
     const displayResult = document.createElement("div");
 
     const btnOrderByAuthor = document.createElement("button");
@@ -72,6 +68,7 @@ function createDisplayResult() {
 }
 
 function createForm() {
+    const listOfArticlesController = updateListOfArticles();
     const form = document.createElement("form");
     form.classList.add("form");
     form.addEventListener("submit", function (event) {

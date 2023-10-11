@@ -1,16 +1,30 @@
 import Article from '../models/Article.js';
 import ListOfArticles from '../models/ListOfArticles.js';
+import {
+    addItemLocalStorage,
+    readLocalStorage,
+    removeItemLocalStorage
+} from '../services/localStorage.js';
 import renderListOfArticlesHTMLElement from '../views/view.js';
-import { readLocalStorage, addItemLocalStorage, removeItemByIdLocalStorage } from '../services/localStorage.js';
 
+export function updateListOfArticles() {
+    const localStorageData = readLocalStorage();
+    const listOfArticles = new ListOfArticles();
 
-
-export function createListOfArticles() {
-    if (readLocalStorage() !== null) {
-        return new ListOfArticles(readLocalStorage());
-    } else {
-        return new ListOfArticles();
+    if (localStorageData !== null) {
+        for (const article of localStorageData) {
+            listOfArticles.addElement(
+                new Article(
+                    article.id,
+                    article.title,
+                    article.author,
+                    new Date(article.date)
+                )
+            );
+        }
     }
+
+    return listOfArticles;
 }
 
 export function handleListOfArticleSorting(listOfArticles, sortedBy) {
@@ -19,6 +33,8 @@ export function handleListOfArticleSorting(listOfArticles, sortedBy) {
     } else if (sortedBy === "date") {
         listOfArticles.sortByDate();
     }
+
+    console.log(listOfArticles)
 
     renderListOfArticlesHTMLElement();
 }
@@ -36,6 +52,19 @@ export function handleFormSubmission(form, event, listOfArticles) {
     addItemLocalStorage(newEntry);
 
     renderListOfArticlesHTMLElement();
+}
+
+export function handleRemoveArticle(article) {
+    const articleToHTML = document.getElementById(article.getId());
+    const userConfirm = confirm(
+        articleToHTML.firstElementChild.textContent +
+        " ------ Do you want to delete this entry?"
+        );
+        
+    if (userConfirm === true) {
+        removeItemLocalStorage(article);
+        renderListOfArticlesHTMLElement();
+    }
 }
 
 function generateUniqueId() {

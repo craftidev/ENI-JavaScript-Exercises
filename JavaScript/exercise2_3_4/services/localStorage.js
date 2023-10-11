@@ -5,11 +5,11 @@ export function readLocalStorage() {
 }
 
 export function addItemLocalStorage(article) {
-    localStorage.setItem(`article-${article.id}`, JSON.stringify(article));
+    localStorage.setItem(`article-${article.getId()}`, JSON.stringify(article));
 }
 
-export function removeItemByIdLocalStorage(aritcleId) {
-    const key = `article-${articleId}`;
+export function removeItemLocalStorage(article) {
+    const key = `article-${article.getId()}`;
     localStorage.removeItem(key);
 }
 
