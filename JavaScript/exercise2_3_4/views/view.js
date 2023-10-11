@@ -1,3 +1,4 @@
+import ListOfArticles from '../models/ListOfArticles.js';
 import {
     handleFormSubmission,
     handleListOfArticleSorting,
@@ -5,7 +6,11 @@ import {
     updateListOfArticles
 } from '../controllers/controller.js';
 
-export default function createExerciseView() {
+let listOfArticlesController;
+
+export function createExerciseView() {
+    listOfArticlesController = updateListOfArticles();
+
     const output = document.createElement("div");
     const form = createForm();
     const displayResult = createDisplayResult();
@@ -24,16 +29,16 @@ export default function createExerciseView() {
     return output;
 }         
 
-function renderListOfArticlesHTMLElement() {
-    const listOfArticlesController = updateListOfArticles();
+export function renderListOfArticlesHTMLElement(listOfArticles) {
     const listOfArticlesHTMLElement = document.querySelector("#listOfArticlesHTMLElement");
     listOfArticlesHTMLElement.innerHTML = "";
 
-    const articles = listOfArticlesController.getListOfArticles();
+    if (!listOfArticles) {
+        listOfArticlesController = updateListOfArticles();
+        listOfArticles = listOfArticlesController;
+    }
 
-    listOfArticlesHTMLElement.innerHTML = "";
-
-    for (const article of articles) {
+    for (const article of listOfArticles.getListOfArticles()) {
         const articleToHTML = article.toHTML();
         articleToHTML.id = article.getId();
 
@@ -46,7 +51,6 @@ function renderListOfArticlesHTMLElement() {
 }
 
 function createDisplayResult() {
-    const listOfArticlesController = updateListOfArticles();
     const displayResult = document.createElement("div");
 
     const btnOrderByAuthor = document.createElement("button");
@@ -68,11 +72,10 @@ function createDisplayResult() {
 }
 
 function createForm() {
-    const listOfArticlesController = updateListOfArticles();
     const form = document.createElement("form");
     form.classList.add("form");
     form.addEventListener("submit", function (event) {
-        handleFormSubmission(this, event, listOfArticlesController);
+        handleFormSubmission(this, event);
     });
 
     const labelTitle = Object.assign(document.createElement("label"),

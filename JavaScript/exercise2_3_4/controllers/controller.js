@@ -5,7 +5,7 @@ import {
     readLocalStorage,
     removeItemLocalStorage
 } from '../services/localStorage.js';
-import renderListOfArticlesHTMLElement from '../views/view.js';
+import { renderListOfArticlesHTMLElement } from '../views/view.js';
 
 export function updateListOfArticles() {
     const localStorageData = readLocalStorage();
@@ -34,12 +34,10 @@ export function handleListOfArticleSorting(listOfArticles, sortedBy) {
         listOfArticles.sortByDate();
     }
 
-    console.log(listOfArticles)
-
-    renderListOfArticlesHTMLElement();
+    renderListOfArticlesHTMLElement(listOfArticles);
 }
 
-export function handleFormSubmission(form, event, listOfArticles) {
+export function handleFormSubmission(form, event) {
     event.preventDefault();
     const newEntry = new Article(
         generateUniqueId(),
@@ -48,7 +46,6 @@ export function handleFormSubmission(form, event, listOfArticles) {
         form.elements.date.valueAsDate
     );
 
-    listOfArticles.addElement(newEntry);
     addItemLocalStorage(newEntry);
 
     renderListOfArticlesHTMLElement();

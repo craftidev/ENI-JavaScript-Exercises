@@ -4,7 +4,6 @@ export default class Article {
         this.title = title;
         this.author = author;
         this.date = date;
-        console.log("created new article, its date: " + this.date);
     }
 
     toHTML() {
@@ -14,7 +13,6 @@ export default class Article {
         title.classList.add("title-in-decimal-list");
         const authorAndDate = document.createElement("p");
 
-        console.log("toHTML invoked, the date: " + this.date);
         const year = this.date.getFullYear();
         const month = String(this.date.getMonth() + 1).padStart(2, '0');
         const day = String(this.date.getDate()).padStart(2, '0');
