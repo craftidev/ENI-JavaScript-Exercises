@@ -1,9 +1,12 @@
+import { handleListOfArticleSorting, handleFormSubmission, createListOfArticles } from './controllers/controller.js';
+
 export default function createExerciseView() {
     const result = document.createElement("div");
-
     const displayResult = createDisplayResult();
     const form = createForm();
+    const listOfArticles = createListOfArticles();
 
+    displayResult.appendChild(listOfArticles.display());
     result.appendChild(form);
     result.appendChild(displayResult);
 
@@ -12,15 +15,18 @@ export default function createExerciseView() {
 
 function createDisplayResult() {
     const displayResult = document.createElement("div");
-    displayResult.id = "displayResult";
 
     const btnOrderByAuthor = document.createElement("button");
     btnOrderByAuthor.textContent = "Order by author";
-    btnOrderByAuthor.id = "btnOrderByAuthor";
+    btnOrderByAuthor.onclick = function() {
+        handleListOfArticleSorting(listOfArticles, "author");
+    }
 
     const btnOrderByDate = document.createElement("button");
     btnOrderByDate.textContent = "Order by date";
-    btnOrderByDate.id = "btnOrderByDate";
+    btnOrderByDate.onclick = function() {
+        handleListOfArticleSorting(listOfArticles, "date");
+    }
 
     displayResult.appendChild(btnOrderByAuthor);
     displayResult.appendChild(btnOrderByDate);
@@ -31,7 +37,9 @@ function createDisplayResult() {
 function createForm() {
     const form = document.createElement("form");
     form.classList.add("form");
-    form.id = "form";
+    form.addEventListener("submit", function (event) {
+        handleFormSubmission(this, event, listOfArticles);
+    });
 
     const labelTitle = Object.assign(document.createElement("label"),
         { type: "text", for: "title" });

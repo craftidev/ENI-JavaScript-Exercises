@@ -11,6 +11,7 @@ export default class ListOfArticles {
 
         this.display();
     }
+
     display() {
         this.ol.innerHTML = "";
 

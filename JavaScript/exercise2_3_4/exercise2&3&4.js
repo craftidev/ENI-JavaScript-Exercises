@@ -1,24 +1,6 @@
 import createExerciseView from './views/view.js';
-import { handleListOfArticleSorting, handleFormSubmission, createListOfArticles } from './controllers/controller.js';
 
-// Entry point of exercise
+// Entry point of the exercise
 export default function exercise2_3_4() {
-    const result = createExerciseView();
-    const listOfArticles = createListOfArticles();
-    result.querySelector("#displayResult").appendChild(listOfArticles.display());
-
-    // Event listeners
-    result.querySelector("#btnOrderByAuthor").onclick = function() {
-        handleListOfArticleSorting(listOfArticles, "author");
-    }
-
-    result.querySelector("#btnOrderByDate").onclick = function() {
-        handleListOfArticleSorting(listOfArticles, "date");
-    }
-
-    result.querySelector("#form").addEventListener("submit", function (event) {
-        handleFormSubmission(this, event, listOfArticles);
-    });
-
-    return result;
+    return createExerciseView();
 }
