@@ -1,15 +1,16 @@
 import Article from '../models/Article.js';
 import ListOfArticles from '../models/ListOfArticles.js';
+import renderListOfArticlesHTMLElement from '../views/view.js';
 import { readLocalStorage, addItemLocalStorage, removeItemByIdLocalStorage } from '../services/localStorage.js';
 
-const listOfArticles = new ListOfArticles();
+
 
 export function createListOfArticles() {
-    if (readLocalStorage(listOfArticles) !== null) {
-        listOfArticles = new ListOfArticles(readLocalStorage());
+    if (readLocalStorage() !== null) {
+        return new ListOfArticles(readLocalStorage());
+    } else {
+        return new ListOfArticles();
     }
-
-    return listOfArticles;
 }
 
 export function handleListOfArticleSorting(listOfArticles, sortedBy) {
@@ -18,6 +19,8 @@ export function handleListOfArticleSorting(listOfArticles, sortedBy) {
     } else if (sortedBy === "date") {
         listOfArticles.sortByDate();
     }
+
+    renderListOfArticlesHTMLElement();
 }
 
 export function handleFormSubmission(form, event, listOfArticles) {
@@ -31,6 +34,8 @@ export function handleFormSubmission(form, event, listOfArticles) {
 
     listOfArticles.addElement(newEntry);
     addItemLocalStorage(newEntry);
+
+    renderListOfArticlesHTMLElement();
 }
 
 function generateUniqueId() {

@@ -1,6 +1,5 @@
 export default class ListOfArticles {
     constructor(listOfArticles = []) {
-        this.ol = document.createElement("ol");
         this.listOfArticles = listOfArticles;
         this.orderByAuthorAscend = true;
         this.orderByDateAscend = true;
@@ -8,8 +7,6 @@ export default class ListOfArticles {
 
     addElement(article) {
         this.listOfArticles.push(article);
-
-        this.display();
     }
 
     sortByAuthor() {
@@ -20,8 +17,6 @@ export default class ListOfArticles {
             this.listOfArticles.sort((a, b) => b.author.localeCompare(a.author));
             this.orderByAuthorAscend = true;
         }
-
-        this.display();
     }
 
     sortByDate() {
@@ -32,7 +27,9 @@ export default class ListOfArticles {
             this.listOfArticles.sort((a, b) => b.date - a.date);
             this.orderByDateAscend = true;
         }
+    }
 
-        this.display();
+    getListOfArticles() {
+        return this.listOfArticles;
     }
 }

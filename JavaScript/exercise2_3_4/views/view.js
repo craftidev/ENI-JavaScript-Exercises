@@ -10,38 +10,42 @@ export default function createExerciseView() {
     const output = document.createElement("div");
     const form = createForm();
     const displayResult = createDisplayResult();
-    const listOfArticlesElement = document.createElement("ol");
-    listOfArticlesElement.classList.add("list-of-articles-display");
+    const listOfArticlesHTMLElement = document.createElement("ol");
+    listOfArticlesHTMLElement.id = ("listOfArticlesHTMLElement");
 
-    renderListOfArticlesDisplay(listOfArticlesElement);
-
-    displayResult.appendChild(listOfArticlesElement);
+    displayResult.appendChild(listOfArticlesHTMLElement);
     output.appendChild(form);
     output.appendChild(displayResult);
 
+    renderListOfArticlesHTMLElement();
+
     return output;
-}
+}             
 
-function renderListOfArticlesDisplay(listOfArticlesElement) {
-    listOfArticlesElement.innerHTML = "";
+function renderListOfArticlesHTMLElement() {
+    const listOfArticlesHTMLElement = document.querySelector("#listOfArticlesHTMLElement");
 
-    for (let article of listOfArticlesController) {
-        const articleToHTML = article.toHTML();
+    if (listOfArticlesHTMLElement !== null) {
+        listOfArticlesHTMLElement.innerHTML = "";
 
-        articleToHTML.onclick = () => {
-            const userConfirm = confirm(
-                articleToHTML.firstElementChild.textContent +
-                " ------ Do you want to delete this entry?"
-            );
+        for (const article of listOfArticlesController.getListOfArticles()) {
+            const articleToHTML = article.toHTML();
 
-            if (userConfirm === true) {
-                articleToHTML.remove();
-                const index = listOfArticlesController.indexOf(article);
-                listOfArticlesController.splice(index, 1);
-            }
-        };
+            articleToHTML.onclick = () => {
+                const userConfirm = confirm(
+                    articleToHTML.firstElementChild.textContent +
+                    " ------ Do you want to delete this entry?"
+                    );
+                    
+                    if (userConfirm === true) {
+                        articleToHTML.remove();
+                        const index = articles.indexOf(article);
+                        articles.splice(index, 1);
+                    }
+                };
 
-        listOfArticlesElement.appendChild(articleToHTML);
+            listOfArticlesHTMLElement.appendChild(articleToHTML);
+        }
     }
 }
 
