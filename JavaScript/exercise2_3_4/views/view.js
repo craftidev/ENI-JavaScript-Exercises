@@ -31,6 +31,7 @@ function createDisplayResult() {
 function createForm() {
     const form = document.createElement("form");
     form.classList.add("form");
+    form.id = "form";
 
     const labelTitle = Object.assign(document.createElement("label"),
         { type: "text", for: "title" });
