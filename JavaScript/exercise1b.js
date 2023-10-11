@@ -1,4 +1,4 @@
-function exercise1b() {
+export default function exercise1b() {
     const START = "une chaine avec des lettres dans un certain ordre pour donner du sens";
     let result = START.replace(/\s+/g, '').split('').sort();
 
