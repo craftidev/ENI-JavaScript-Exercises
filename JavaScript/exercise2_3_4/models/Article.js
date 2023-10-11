@@ -1,5 +1,6 @@
 export default class Article {
-    constructor(title, author, date) {
+    constructor(id, title, author, date) {
+        this.id = id;
         this.title = title;
         this.author = author;
         this.date = date;
