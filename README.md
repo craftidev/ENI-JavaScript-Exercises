@@ -1,3 +1,13 @@
+# Branch goals
+New feature:
+- Calculate the speed of typing of the user.
+- There is a text area, a reset button, and 2 counters.
+- The calculation starts when the user enter the first character.
+- The first counter calculate the average speed of typing.
+- The second counter calculate the average speed of typing for each chunk of n seconds.
+
+---
+
 https://craftidev.github.io/ENI-JavaScript-Exercises/
 
 Vanilla JS.
