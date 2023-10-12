@@ -1,0 +1,31 @@
+.speed-main-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.speed-counter {
+    background-color: brown;
+    color: aliceblue;
+    width: fit-content;
+    padding: 0.5em;
+}
+
+.speed-button, .speed-textarea {
+    width: 100%;
+    max-width: 60em;
+    padding: 1em;
+}
+
+.speed-textarea {
+    min-height: 9em;
+}
+
+.speed-button {
+    &:focus {
+        background-color: rgb(181, 221, 181);
+    }
+}
+
+.speed-h2 {
+    font-size: 2em;
+}
