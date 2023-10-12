@@ -10,10 +10,10 @@ let listOfArticlesController;
 
 export function createExerciseView() {
     const output = document.createElement("div");
-    const form = createForm();
-    const displayResult = createDisplayResult();
     const listOfArticlesHTMLElement = document.createElement("ol");
     listOfArticlesHTMLElement.id = ("listOfArticlesHTMLElement");
+    const form = createForm();
+    const displayResult = createDisplayResult();
 
     displayResult.appendChild(listOfArticlesHTMLElement);
     output.appendChild(form);
@@ -28,13 +28,13 @@ export function createExerciseView() {
 }         
 
 export function renderListOfArticlesHTMLElement(listOfArticles) {
-    const listOfArticlesHTMLElement = document.querySelector("#listOfArticlesHTMLElement");
-    listOfArticlesHTMLElement.innerHTML = "";
-
     if (!listOfArticles) {
         listOfArticlesController = updateListOfArticles();
         listOfArticles = listOfArticlesController;
     }
+
+    const listOfArticlesHTMLElement = document.querySelector("#listOfArticlesHTMLElement");
+    listOfArticlesHTMLElement.innerHTML = "";
 
     for (const article of listOfArticles.getListOfArticles()) {
         const articleToHTML = article.toHTML();

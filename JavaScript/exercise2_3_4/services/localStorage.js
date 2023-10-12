@@ -1,5 +1,6 @@
 export function readLocalStorage() {
     const storedData = getAllItemsWithPrefix("article-");
+
     storedData.sort((a, b) => {
         const idA = parseInt(a.id.split('-')[0]);
         const idB = parseInt(b.id.split('-')[0]);
