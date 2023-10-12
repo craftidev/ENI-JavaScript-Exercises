@@ -1,3 +1,9 @@
+import exercise0 from './JavaScript/exercise0.js';
+import exercise1a from './JavaScript/exercise1a.js';
+import exercise1b from './JavaScript/exercise1b.js';
+import exercise1c from './JavaScript/exercise1c.js';
+import exercise2_3_4 from './JavaScript/exercise2_3_4/exercise2&3&4.js';
+
 // Chapters array containing title and content
 var chapters = [
     {
@@ -17,8 +23,8 @@ var chapters = [
         content: exercise1c,
     },
     {
-        title: "Task 5 & 6: Add dynamically formated text from HTML form and sort article created using objects",
-        content: exercise2_3,
+        title: "Task 5, 6 & 7: Add dynamically formated text from HTML form and sort article created using objects (MVC architecture)",
+        content: exercise2_3_4,
     }
     // Add new chapters here
 ];

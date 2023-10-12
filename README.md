@@ -20,4 +20,5 @@ Use JS math.random and count iteration necessary to draw all numbers in a range
 - Add the possibility to sort the list of article by
     - alphabetical order of Authors
     - chronological order of Dates
-
+- Use MVC patterns/architecture
+- Use browser local storage to remember user entries

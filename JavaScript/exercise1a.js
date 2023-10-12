@@ -1,4 +1,4 @@
-function exercise1a() {
+export default function exercise1a() {
     let rangeList = [];
     let iterationCounter = 0;
 

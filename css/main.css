@@ -3,7 +3,7 @@
 }
 
 a {
-    color: rgb(146, 146, 146);
+    color: rgb(204, 202, 189);
 
     &:hover {
         color: #110f09;
@@ -39,6 +39,8 @@ ol {
 
 .menu-element {
     background-color: #706443;
+    margin-top: 0.5em;
+    padding: 0.15em;
 }
 
 #exercises {

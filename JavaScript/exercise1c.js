@@ -1,4 +1,4 @@
-function exercise1c() {
+export default function exercise1c() {
     const PHRASE = "une phrase sans majuscule";
     let words = PHRASE.split(' ');
     for(let word of words) {
