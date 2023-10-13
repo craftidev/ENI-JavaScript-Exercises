@@ -31,30 +31,36 @@ function createView() {
     outputView.appendChild(resetButtonView);
 
     const controller = getController();
+    controller.setCounters(totalAverageCounterView, timeChunkAverageCounterView);
     controller.handleReset(resetButtonView, textareaView);
-    controller.handleCounters(
-        textareaView,
-        totalAverageCounterView,
-        timeChunkAverageCounterView
-    );
+    controller.handleCounters(textareaView);
 
     return outputView;
 }
 
 // Controller layer
 const controllerSingleton =  (function () {
-    return {
-        handleCounters: function (textarea, totalAverageView, timeChunkAverageView) {
-            const totalAverageCounter = totalAverageView.getElementsByTagName('strong')[0];
-            const timeChunckAverageCounter = timeChunkAverageView.getElementsByTagName('strong')[0];
+    let totalAverageCounter;
+    let timeChunkAverageCounter;
 
+    return {
+        handleCounters: function (textarea) {
             textarea.addEventListener('keyup', startTimer);
-            textarea.addEventListener('keyup',  () => { updateCounters(textarea, totalAverageCounter, timeChunckAverageCounter) });
         },
         handleReset: function (button, textarea) {
             button.addEventListener('click', () => {
                 textarea.value = '';
             });
+        },
+        setCounters: function (totalAverage, timeChunkAverage) {
+            totalAverageCounter = totalAverage.getElementsByTagName('strong')[0];
+            timeChunkAverageCounter = timeChunkAverage.getElementsByTagName('strong')[0];
+        },
+        getCounters: function () {
+            return {
+                totalAverageCounter: totalAverageCounter,
+                timeChunkAverageCounter: timeChunkAverageCounter
+            };
         }
     }
 })();
@@ -63,39 +69,43 @@ function getController() {
     return controllerSingleton;
 }
 
-function updateCounters(textarea, totalAverageCounter, timeChunckAverageCounter) {
-    totalAverageCounter.textContent = textarea.value.length;
-    timeChunckAverageCounter.textContent = textarea.value.length;
-}
-
 function startTimer(event) {
+    const counters = controllerSingleton.getCounters();
+
     event.target.removeEventListener(event.type, startTimer);
-    timeLoop(event.target);
+    timeLoop(event.target, counters.totalAverageCounter, counters.timeChunkAverageCounter);
 }
 
-async function timeLoop(textarea) {
-    for (let index = 0; index < 1000 && textarea.value.length > 0; index++) {
-        await new Promise((resolve) => {
-            setTimeout(() => {
-                console.log('tic, chars: ' + textarea.value.length);
-                resolve();
-            }, 500);
-        });
+async function timeLoop(textarea, totalAverageCounter, timeChunckAverageCounter) {
+    const startingTimeStamp = Date.now();
+
+    try {
+        while (textarea.value.length > 0) {
+            const startingTimeStampChunk = Date.now();
+            const numberOfCharactersAtStartOfChunk = textarea.value.length;
+    
+            await new Promise((resolve) => {
+                setTimeout(() => {
+                    if (textarea.value.length > 0) {
+                        const timeElapsedTotalInSeconds = (Date.now() - startingTimeStamp) / 1000;
+                        const timeElapsedChunkInSeconds = (Date.now() - startingTimeStampChunk) / 1000;
+
+                        totalAverageCounter.textContent = (textarea.value.length / timeElapsedTotalInSeconds).toFixed(2);
+                        timeChunckAverageCounter.textContent = (
+                            (textarea.value.length - numberOfCharactersAtStartOfChunk) /
+                            timeElapsedChunkInSeconds
+                        ).toFixed(2);
+                    }
+
+                    resolve();
+                }, 1000);
+            });
+        }
+
+        textarea.addEventListener('keyup', startTimer);
     }
 
-    textarea.addEventListener('keyup', startTimer);
+    catch (error) {
+        console.error(error.message);
+    }
 }
-
-    // if (isEnabled) {
-    //     console.log('on');
-    //     textarea.removeEventListener('keyup', timeLoop(textarea, true));
-    // }
-    // else {
-    //     console.log('off');
-    //     textarea.addEventListener('keyup', timeLoop(textarea, true));
-    // }
-    // return new Promise((resolve) => {
-    //     setTimeout(() => {
-    //         resolve("total chars: " + numChars);
-    //     }, 1000);
-    // });
