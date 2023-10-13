@@ -4,7 +4,7 @@
 }
 
 .speed-counter {
-    background-color: brown;
+    background-color: darkgreen;
     color: aliceblue;
     width: fit-content;
     padding: 0.5em;
@@ -18,11 +18,27 @@
 
 .speed-textarea {
     min-height: 9em;
+    &:focus {
+        outline: 1px solid rgb(0, 255, 0);
+        border: 2px solid green;
+        border-radius: 4px;
+        background-color: rgb(171, 240, 198);
+        -webkit-transition: background-color 0.5s ease-out;
+        -moz-transition: background-color 0.5s ease-out;
+        -o-transition: background-color 0.5s ease-out;
+        transition: background-color 0.5s ease-out;
+    }
 }
 
 .speed-button {
+    &:active {
+        background-color: lightcoral;
+    }
     &:focus {
-        background-color: rgb(181, 221, 181);
+        -webkit-transition: background-color 0.5s ease-out;
+        -moz-transition: background-color 0.5s ease-out;
+        -o-transition: background-color 0.5s ease-out;
+        transition: background-color 0.5s ease-out;
     }
 }
 
