@@ -1,3 +1,5 @@
+const timeChunkLengthInMilliseconds = 5000;
+
 // Main entry of the feature
 export default function exercise5() {
     return createView();
@@ -98,7 +100,7 @@ async function timeLoop(textarea, totalAverageCounter, timeChunckAverageCounter)
                     }
 
                     resolve();
-                }, 1000);
+                }, timeChunkLengthInMilliseconds);
             });
         }
 
